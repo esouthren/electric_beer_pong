@@ -5,6 +5,7 @@ from OpenGL.GLU import *
 import pygame
 from pygame.locals import *
 import serial
+import datetime
 
 ser = serial.Serial('COM3', 38400, timeout=1)
 
@@ -113,14 +114,22 @@ def read_data():
     ser.write(b".")
     # while not line_done:
     line = ser.readline()
+
     angles = line.split(b", ")
-    if len(angles) == 3:
-        ax = float(angles[0])
-        print(ax)
-        ay = float(angles[1])
-        print(ay)
-        az = float(angles[2])
-        print(az)
+
+    # Timestamp addition
+    today = datetime.datetime.now()
+    angles.append(today)
+
+    if len(angles) == 4:
+        for a in angles:
+            print(a)
+        ax = (angles[0])
+
+        ay = (angles[1])
+
+        az = (angles[2])
+
         line_done = 1
 
 
