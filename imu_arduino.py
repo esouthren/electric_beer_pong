@@ -57,6 +57,7 @@ def read_data(previous_time, prev_x_acc, prev_y_acc, vx, vy):
 
         acc_x = float(ax) * 9.81 / 8192
         acc_y = float(ay) * 9.81 / 8192
+        print("raw x: {} \traw y: {}".format(ax, ay))
         print("Acc. x: {}".format(float(acc_x)))
         print("Acc: y: {}".format(float(acc_y)))
         if previous_time == None:
@@ -81,14 +82,17 @@ def read_data(previous_time, prev_x_acc, prev_y_acc, vx, vy):
         #print("diff: {}".format(diff))
         # v = 0.5 * diff * change in acceleration ( /1000/1000 to convert to seconds)
         #print("vx: {}".format(vx))
-        if abs(float(ax)) > 0.1 and abs(float(ay)) > 0.1 and abs(float(az)) > 0.1:
-            vx = 0.5 * (diff/1000/1000) * (float(acc_x) + float(prev_x_acc))
+        if abs(float(ax)) > 0.01 and abs(float(ay)) > 0.01 and abs(float(az)) > 0.01:
+            vx += 0.5 * (diff/1000/1000) * (float(acc_x) + float(prev_x_acc))
                                     # current value of X.acc
-            vy = 0.5 * (diff/1000/1000) * (float(acc_y) + float(prev_y_acc))
+            vy += 0.5 * (diff/1000/1000) * (float(acc_y) + float(prev_y_acc))
             prev_x_acc = acc_x
             prev_y_acc = acc_y
             print("Vel X: {}".format(vx))
             print("Vel Y: {}".format(vy))
+        else:
+            vx = 0;
+
     return previous_time, prev_x_acc, prev_y_acc, vx, vy
 
 
@@ -100,7 +104,7 @@ def main():
     prev_y_acc = 0
     prev_x_acc = 0
 
-    for i in range(10000):
+    for i in range(1000000):
         previous_time, prev_x_acc, prev_y_acc, vx, vy = read_data(previous_time, prev_x_acc, prev_y_acc, vx, vy)
 
 
