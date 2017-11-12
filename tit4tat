@@ -92,4 +92,4 @@ def main(v_x, v_y, n):
     ani = animation.FuncAnimation(fig, update, len(x), fargs=[x, y, line], interval=10, blit=True)
     plt.show();
 
-main(3.5, 12.8, 50);z
+main(3.5, 12.8, 50);

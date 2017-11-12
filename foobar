@@ -1,0 +1,20 @@
+import pyrebase
+config = {
+  "apiKey": "apiKey",
+  "authDomain": "greatunihack2017.firebaseapp.com",
+  "databaseURL": "https://greatunihack2017.firebaseio.com",
+  "storageBucket": "greatunihack2017.appspot.com",
+  "serviceAccount": "path/to/serviceAccountCredentials.json"
+  "messagingSenderId": "525527967771"
+  "projectId": "greatunihack2017"
+}
+firebase = pyrebase.initialize_app(config)
+
+auth = firebase.auth()
+#authenticate a user
+user = auth.sign_in_with_email_and_password(", "mySuperStrongPassword")
+
+archer = {"name": "Sterling Archer", "agency": "Figgis Agency"}
+db.child("agents").push(archer, user['idToken'])
+
+def main():
